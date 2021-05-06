@@ -10,6 +10,11 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#my stuff
+.idea/
+maven-status/
+maven-archiver/
+
 # Package Files #
 *.jar
 *.war

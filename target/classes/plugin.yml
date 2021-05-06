@@ -1,0 +1,6 @@
+name: StatisticsProject
+version: 1.0-SNAPSHOT
+main: casper.statisticsproject.Main
+api-version: 1.16
+commands:
+  game:
