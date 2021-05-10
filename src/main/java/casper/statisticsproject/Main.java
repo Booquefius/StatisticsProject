@@ -1,7 +1,9 @@
 package casper.statisticsproject;
 
 import casper.statisticsproject.commands.GameCommand;
+import casper.statisticsproject.commands.OldGameCommand;
 import casper.statisticsproject.utils.BlackjackPlayer;
+import casper.statisticsproject.utils.Menus;
 import casper.statisticsproject.utils.Utils;
 import com.samjakob.spigui.SpiGUI;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,17 +16,19 @@ public final class Main extends JavaPlugin {
     SpiGUI gui;
     List<BlackjackPlayer> blackjackPlayers = new ArrayList<>();
     public boolean isGameRunning;
-
+    public Menus menus;
 
 
     @Override
     public void onEnable() {
+        menus = new Menus(this);
         gui = new SpiGUI(this);
         utils = new Utils(this);
 
         isGameRunning = false;
 
         getCommand("game").setExecutor(new GameCommand(this));
+        getCommand("oldgame").setExecutor(new OldGameCommand(this));
 
 
     }
@@ -41,6 +45,8 @@ public final class Main extends JavaPlugin {
     public Utils getUtils() {
         return utils;
     }
+
+    public Menus getMenus() { return menus; }
 
     public List<BlackjackPlayer> getBlackjackPlayers() {
         return blackjackPlayers;

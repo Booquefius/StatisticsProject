@@ -2,6 +2,7 @@ package casper.statisticsproject.utils;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import org.bukkit.entity.Player;
 
 import java.util.Map;
 
@@ -9,8 +10,8 @@ public class BlackjackPlayer {
     Multimap<Card, CardType> storage;
     String name;
 
-    public BlackjackPlayer(String name){
-        this.name = name;
+    public BlackjackPlayer(Player name){
+        this.name = name.getName();
         this.storage = ArrayListMultimap.create();
         storage.putAll(Utils.getRandomCard());
         storage.putAll(Utils.getRandomCard());

@@ -5,6 +5,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.Random;
@@ -12,13 +13,6 @@ import java.util.Random;
 public class Utils {
 
     private final Main main;
-    static String[]  names = new String[]{
-            "Jack",
-            "Clarence",
-            "Kacy",
-            "John",
-            "Stewart"
-    };
 
     public Utils(Main main) {
         this.main = main;
@@ -39,16 +33,15 @@ public class Utils {
         return value / 21.0;
     }
 
+    public void sendUsage(Player player, String message){
+        player.sendMessage(ChatColor.RED+"Usage: "+message);
+    }
+
     public static Multimap<Card, CardType> getRandomCard(){
         int card = new Random().nextInt(Card.values().length);
         int type = new Random().nextInt(CardType.values().length);
         Multimap<Card, CardType> hashMap = ArrayListMultimap.create();
         hashMap.put(Card.values()[card], CardType.values()[type]);
         return hashMap;
-    }
-    public static String addPlayer(){
-        int name = new Random().nextInt(names.length);
-        Bukkit.broadcastMessage(ChatColor.GREEN+""+ ChatColor.BOLD+"GAME "+ChatColor.WHITE+names[name]+" has joined the game.");
-        return names[name];
     }
 }
