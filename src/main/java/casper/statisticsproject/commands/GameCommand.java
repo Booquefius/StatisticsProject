@@ -1,27 +1,13 @@
 package casper.statisticsproject.commands;
 
 import casper.statisticsproject.Main;
-import casper.statisticsproject.utils.BlackjackPlayer;
-import casper.statisticsproject.utils.Card;
-import casper.statisticsproject.utils.CardType;
-import casper.statisticsproject.utils.Utils;
-import com.google.common.collect.Multimap;
-import com.samjakob.spigui.SGMenu;
-import com.samjakob.spigui.buttons.SGButton;
-import com.samjakob.spigui.item.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class GameCommand implements CommandExecutor {
     private final Main main;
@@ -44,6 +30,7 @@ public class GameCommand implements CommandExecutor {
         *   -> join
         *   -> help
         *   -> admin
+        *       -> addplayer <player>
         *       -> start
         *       -> kick <player>
         *       -> setbal <player> <amount>
@@ -69,9 +56,15 @@ public class GameCommand implements CommandExecutor {
                         }
                         case "kick": {
                             main.getUtils().sendUsage(player, "/game admin kick <player>");
+                            break;
                         }
                         case "setbal": {
                             main.getUtils().sendUsage(player, "/game admin setbal <player> <amount>");
+                            break;
+                        }
+                        case "addplayer": {
+                            main.getUtils().sendUsage(player, "/game admin addplayer <player>");
+                            break;
                         }
                     }
                 } else {
@@ -94,6 +87,7 @@ public class GameCommand implements CommandExecutor {
             player.sendMessage(ChatColor.RED+""+ChatColor.BOLD+"BLACKJACK ADMIN COMMANDS");
             player.sendMessage(ChatColor.GRAY+"/game admin start");
             player.sendMessage(ChatColor.GRAY+"/game admin kick <player>");
+            player.sendMessage(ChatColor.GRAY+"/game admin addplayer <player>");
             player.sendMessage(ChatColor.GRAY+"/game admin setbal <player> <amount>");
         }
         player.sendMessage(ChatColor.GRAY+""+ChatColor.STRIKETHROUGH+"                                      ");

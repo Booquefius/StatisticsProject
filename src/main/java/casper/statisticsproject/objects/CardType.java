@@ -1,4 +1,4 @@
-package casper.statisticsproject.utils;
+package casper.statisticsproject.objects;
 
 public enum CardType {
     CLUB("Clubs"),

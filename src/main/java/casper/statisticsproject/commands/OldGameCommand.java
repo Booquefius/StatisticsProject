@@ -1,28 +1,7 @@
 package casper.statisticsproject.commands;
 
-import casper.statisticsproject.Main;
-import casper.statisticsproject.utils.BlackjackPlayer;
-import casper.statisticsproject.utils.Card;
-import casper.statisticsproject.utils.CardType;
-import casper.statisticsproject.utils.Utils;
-import com.google.common.collect.Multimap;
-import com.samjakob.spigui.SGMenu;
-import com.samjakob.spigui.buttons.SGButton;
-import com.samjakob.spigui.item.ItemBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-public class OldGameCommand implements CommandExecutor {
+public class OldGameCommand {
+    /*
     private final Main main;
 
     public OldGameCommand(Main main) {
@@ -42,7 +21,7 @@ public class OldGameCommand implements CommandExecutor {
             // CLEAR
             main.getBlackjackPlayers().clear();
             // INITIALIZE
-            main.addBlackjackPlayer(new BlackjackPlayer(player));
+            main.addBlackjackPlayer(new BlackjackPlayer(player.getName()));
             main.isGameRunning = true;
         }
         for (Map.Entry<Card, CardType> entry : main.getBlackjackPlayer(player.getDisplayName()).getStorage().entries()) {
@@ -161,4 +140,5 @@ public class OldGameCommand implements CommandExecutor {
         }));
         player.openInventory(menu.getInventory());
     }
+     */
 }

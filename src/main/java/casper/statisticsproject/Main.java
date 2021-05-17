@@ -1,8 +1,11 @@
 package casper.statisticsproject;
 
 import casper.statisticsproject.commands.GameCommand;
-import casper.statisticsproject.commands.OldGameCommand;
-import casper.statisticsproject.utils.BlackjackPlayer;
+import casper.statisticsproject.commands.GameTabCompleter;
+import casper.statisticsproject.objects.BlackjackPlayer;
+import casper.statisticsproject.objects.Card;
+import casper.statisticsproject.objects.CardType;
+import casper.statisticsproject.objects.PlayingCard;
 import casper.statisticsproject.utils.Menus;
 import casper.statisticsproject.utils.Utils;
 import com.samjakob.spigui.SpiGUI;
@@ -15,6 +18,7 @@ public final class Main extends JavaPlugin {
     Utils utils;
     SpiGUI gui;
     List<BlackjackPlayer> blackjackPlayers = new ArrayList<>();
+    public static List<PlayingCard> playingCards = new ArrayList<>();
     public boolean isGameRunning;
     public Menus menus;
 
@@ -27,8 +31,15 @@ public final class Main extends JavaPlugin {
 
         isGameRunning = false;
 
+        for (Card card : Card.values()) {
+            for (CardType cardType : CardType.values()) {
+                playingCards.add(new PlayingCard(card, cardType));
+            }
+        }
+
         getCommand("game").setExecutor(new GameCommand(this));
-        getCommand("oldgame").setExecutor(new OldGameCommand(this));
+        getCommand("game").setTabCompleter(new GameTabCompleter(this));
+//        getCommand("oldgame").setExecutor(new OldGameCommand(this));
 
 
     }
@@ -41,6 +52,7 @@ public final class Main extends JavaPlugin {
     public SpiGUI getGui() {
         return gui;
     }
+
 
     public Utils getUtils() {
         return utils;
@@ -57,6 +69,7 @@ public final class Main extends JavaPlugin {
     public void addBlackjackPlayer(BlackjackPlayer players){
         blackjackPlayers.add(players);
     }
+
     public void removeBlackjackPlayer(BlackjackPlayer players){
         blackjackPlayers.removeIf(players1 -> players==players1);
     }
