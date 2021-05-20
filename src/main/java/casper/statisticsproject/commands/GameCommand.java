@@ -21,9 +21,14 @@ public class GameCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         //VALIDATION
         if (!(sender instanceof Player)) return true;
-        if (args.length == 0) return true;
+
 
         Player player = (Player) sender;
+
+        if (args.length == 0) {
+            sendHelp(player);
+            return true;
+        }
 
         /* Command Map
         *
@@ -43,10 +48,8 @@ public class GameCommand implements CommandExecutor {
             case 1: {
                 if (args[0].equalsIgnoreCase("join")){
                     main.getMenus().openSelection((player));
-                    return true;
                 } else {
                     sendHelp(player);
-                    return true;
                 }
             }
             case 2:{
@@ -55,6 +58,13 @@ public class GameCommand implements CommandExecutor {
                         case "start": {
                             //TODO
                             // START THE GAME COMMAND
+
+                            /*
+                            main.getPlayers().forEach((p, bjplayer) -> {
+
+                            });
+                            */
+
                             return true;
                         }
                         case "kick": {
@@ -70,11 +80,10 @@ public class GameCommand implements CommandExecutor {
                             return true;
                         }
                     }
-                    return true;
                 } else {
                     sendHelp(player);
-                    return true;
                 }
+                return true;
             }
             case 3: {
                 switch (args[1].toLowerCase(Locale.ROOT)){
@@ -84,10 +93,11 @@ public class GameCommand implements CommandExecutor {
                     case "kick": {
                         if (main.getBlackjackPlayer(args[2]) == null){
                             player.sendMessage(ChatColor.RED+"The user '"+args[2]+"' does not exist.");
-                            player.sendMessage(ChatColor.GREEN+""+ChatColor.BOLD+"SUCCESS! "+ChatColor.WHITE+"You have removed "+args[2]+ " from the game.");
                             return true;
                         }
                         main.removeBlackjackPlayer(main.getBlackjackPlayer(args[2]));
+                        player.sendMessage(ChatColor.GREEN+""+ChatColor.BOLD+"SUCCESS! "+ChatColor.WHITE+"You have removed "+args[2]+ " from the game.");
+                        return true;
                     }
                     case "addbal": {
                         main.getUtils().sendUsage(player, "/game admin addbal <player> <amount>");
@@ -100,6 +110,7 @@ public class GameCommand implements CommandExecutor {
                         }
                         main.addBlackjackPlayer(new BlackjackPlayer(args[2]));
                         player.sendMessage(ChatColor.GREEN+""+ChatColor.BOLD+"SUCCESS! "+ChatColor.WHITE+"You have added "+args[2]+ " to the game.");
+                        return true;
                     }
                 }
                 return true;

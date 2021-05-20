@@ -22,15 +22,15 @@ public class Utils {
         this.main = main;
     }
 
-    public void flipCard (BlackjackPlayer player, PlayingCard card){
-        if (Arrays.stream(player.getStorage()).filter(card1 -> card1==card).anyMatch(card1 -> true)){
-            
+    public void flipCard (BlackjackPlayer player, PlayingCard card, int value, int set){
+        if (card.getCard().isAce()){
+            player.getStorage().get(set).set(value, new PlayingCard(card.getCard().setValue(card.getCard().getValue() == 11 ? 1 : 11), card.getCardType()));
         }
     }
 
-    public double bustChance(BlackjackPlayer player){
+    public double bustChance(BlackjackPlayer player, int set){
         int value = 0;
-        for (PlayingCard entry : player.getStorage()) {
+        for (PlayingCard entry : player.getStorage().get(set)) {
             value += entry.getCard().getValue();
         }
         if (value >= 21){
@@ -38,14 +38,14 @@ public class Utils {
         }
         return value / 21.0;
     }
-    public BestMove getBestMove(BlackjackPlayer player, DealerPlayer dealer){
+    public BestMove getBestMove(BlackjackPlayer player, DealerPlayer dealer, int playerSet){
         //If player has already hit then default to stand
-        if (player.getStorage().length > 2){
+        if (player.getStorage().get(playerSet).size() > 2){
             return BestMove.STAND;
         }
         PlayingCard dealerCard = dealer.getFacingCard();
 
-        PlayingCard[] cards = player.getStorage();
+        PlayingCard[] cards = (PlayingCard[]) player.getStorage().get(playerSet).toArray();
         int value = cards[0].getCard().getValue() + cards[1].getCard().getValue();
 
         //make sure player isnt bust
@@ -210,8 +210,5 @@ public class Utils {
     public static PlayingCard getRandomCard(){
         int random = new Random().nextInt(Main.playingCards.size());
         return Main.playingCards.get(random);
-//        int card = new Random().nextInt(Card.values().length);
-//        int type = new Random().nextInt(CardType.values().length);
-//        return new PlayingCard(Card.values()[card], CardType.values()[type]);
     }
 }
