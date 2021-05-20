@@ -22,7 +22,7 @@ public class GameTabCompleter implements TabCompleter {
                     return List.of("join", "help", "admin");
                 case 2: {
                     if (args[0].equalsIgnoreCase("admin")){
-                        return List.of("start", "kick", "setbal");
+                        return List.of("start", "kick", "addbal", "addplayer");
                     }
                 }
             }

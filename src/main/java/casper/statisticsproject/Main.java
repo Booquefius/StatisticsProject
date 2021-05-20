@@ -9,15 +9,18 @@ import casper.statisticsproject.objects.PlayingCard;
 import casper.statisticsproject.utils.Menus;
 import casper.statisticsproject.utils.Utils;
 import com.samjakob.spigui.SpiGUI;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class Main extends JavaPlugin {
     Utils utils;
     SpiGUI gui;
     List<BlackjackPlayer> blackjackPlayers = new ArrayList<>();
+    HashMap<Player, BlackjackPlayer> players = new HashMap<>();
     public static List<PlayingCard> playingCards = new ArrayList<>();
     public boolean isGameRunning;
     public Menus menus;
@@ -31,6 +34,7 @@ public final class Main extends JavaPlugin {
 
         isGameRunning = false;
 
+        // add each card type to the playingCards list
         for (Card card : Card.values()) {
             for (CardType cardType : CardType.values()) {
                 playingCards.add(new PlayingCard(card, cardType));
@@ -60,11 +64,23 @@ public final class Main extends JavaPlugin {
 
     public Menus getMenus() { return menus; }
 
+    public HashMap<Player, BlackjackPlayer> getPlayers() {
+        return players;
+    }
+    public void addPlayer(Player player, BlackjackPlayer blackjackPlayer){
+        getPlayers().put(player, blackjackPlayer);
+    }
+    public void removePlayer(Player player){
+        getPlayers().put(player, null);
+    }
+
     public List<BlackjackPlayer> getBlackjackPlayers() {
         return blackjackPlayers;
     }
     public  BlackjackPlayer getBlackjackPlayer(String name){
-        return blackjackPlayers.stream().filter(blackjackPlayer -> blackjackPlayer.getName().equals(name)).findFirst().get();
+        if (blackjackPlayers.stream().anyMatch(blackjackPlayer -> blackjackPlayer.getName().equals(name)))
+            return blackjackPlayers.stream().filter(blackjackPlayer -> blackjackPlayer.getName().equals(name)).findFirst().get();
+        return null;
     }
     public void addBlackjackPlayer(BlackjackPlayer players){
         blackjackPlayers.add(players);
