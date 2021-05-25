@@ -35,6 +35,8 @@ public class GameCommand implements CommandExecutor {
         * /game
         *   -> join
         *   -> help
+        *   -> debug
+        *       -> openbj
         *   -> admin
         *       -> addplayer <player>
         *       -> start
@@ -48,11 +50,21 @@ public class GameCommand implements CommandExecutor {
             case 1: {
                 if (args[0].equalsIgnoreCase("join")){
                     main.getMenus().openSelection((player));
+                    return true;
                 } else {
                     sendHelp(player);
+                    return true;
                 }
             }
             case 2:{
+                if (args[0].equalsIgnoreCase("debug") && player.isOp()){
+                    switch (args[1].toLowerCase(Locale.ROOT)){
+                        case "openbj": {
+                            main.getMenus().openBlackJack(player, main.getPlayers().get(player));
+                            return true;
+                        }
+                    }
+                }
                 if (args[0].equalsIgnoreCase("admin") && player.isOp()){
                     switch (args[1].toLowerCase(Locale.ROOT)){
                         case "start": {
@@ -133,6 +145,9 @@ public class GameCommand implements CommandExecutor {
             player.sendMessage(ChatColor.GRAY+"/game admin kick <player>");
             player.sendMessage(ChatColor.GRAY+"/game admin addplayer <player>");
             player.sendMessage(ChatColor.GRAY+"/game admin addbal <player> <amount>");
+            player.sendMessage(" ");
+            player.sendMessage(ChatColor.DARK_RED+""+ChatColor.BOLD+"BLACKJACK DEBUG COMMANDS");
+            player.sendMessage(ChatColor.GRAY+"/game debug openbj");
         }
         player.sendMessage(ChatColor.GRAY+""+ChatColor.STRIKETHROUGH+"                                      ");
     }

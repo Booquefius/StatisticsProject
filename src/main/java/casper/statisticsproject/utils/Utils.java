@@ -45,25 +45,25 @@ public class Utils {
         }
         PlayingCard dealerCard = dealer.getFacingCard();
 
-        PlayingCard[] cards = (PlayingCard[]) player.getStorage().get(playerSet).toArray();
-        int value = cards[0].getCard().getValue() + cards[1].getCard().getValue();
+        List<PlayingCard> cards = player.getStorage().get(playerSet);
+        int value = cards.get(0).getCard().getValue() + cards.get(1).getCard().getValue();
 
-        //make sure player isnt bust
+        //make sure player isn't bust
         if (value >= 21){
             return BestMove.STAND;
         }
 
         //Deal with all the ones that have consistent rules
-        if (cards[0].getCard().isAce() && cards[1].getCard().isAce())
+        if (cards.get(0).getCard().isAce() && cards.get(1).getCard().isAce())
             return BestMove.SPLIT;
-        if (cards[0].getCard().getValue() == 8 && cards[1].getCard().getValue() == 8)
+        if (cards.get(0).getCard().getValue() == 8 && cards.get(1).getCard().getValue() == 8)
             return BestMove.SPLIT;
-        if (cards[0].getCard().getValue() == 10 && cards[1].getCard().getValue() == 10)
+        if (cards.get(0).getCard().getValue() == 10 && cards.get(1).getCard().getValue() == 10)
             return BestMove.STAND;
 
         // if your cards contain an ace
         // soft cards
-        if (cards[0].getCard().isAce() || cards[1].getCard().isAce()){
+        if (cards.get(0).getCard().isAce() || cards.get(1).getCard().isAce()){
             if (value == 19 || value == 20){
                 return BestMove.STAND;
             }
@@ -103,9 +103,9 @@ public class Utils {
                     }
                 }
             }
-        } else if (cards[0].getCard().getValue() == cards[1].getCard().getValue()){
+        } else if (cards.get(0).getCard().getValue() == cards.get(1).getCard().getValue()){
             // pairs
-            switch (cards[0].getCard().getValue()){
+            switch (cards.get(0).getCard().getValue()){
                 case 1: case 11: case 8:
                     return BestMove.SPLIT;
                 case 10:
